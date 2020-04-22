@@ -1,18 +1,20 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+	<div class="home">
+		<h1>This is an Home page</h1>
+		<h1>Get count from vuex:{{ vuexGetters.count }}</h1>
+	</div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
-export default {
-  name: "Home",
-  components: {
-    HelloWorld
-  }
-};
+	import { computed, getCurrentInstance } from 'vue'
+	export default {
+		name: 'Home',
+		setup() {
+			const { ctx } = getCurrentInstance()
+			const vuexGetters = computed(() => ctx.$store.getters)
+			return {
+				vuexGetters
+			}
+		}
+	}
 </script>
