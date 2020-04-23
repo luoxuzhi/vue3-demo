@@ -4,12 +4,16 @@
 		<h1 @click="plusCount">innerCount:{{ innerCount }}</h1>
 		<h1>reactive num:{{ num }}</h1>
 		<h1>vuex count:{{ vuexCount }}</h1>
+		<h1>msg from parent:{{ msg }}</h1>
 	</div>
 </template>
 <script>
-	import { ref, getCurrentInstance, computed, onMounted, reactive, toRefs } from 'vue'
+	import { ref, getCurrentInstance, computed, onMounted, reactive, toRefs, watch } from 'vue'
 	export default {
-		setup() {
+		props: {
+			msg: [String, Number]
+		},
+		setup(props) {
 			const innerCount = ref(0)
 			const { ctx } = getCurrentInstance()
 
@@ -46,6 +50,11 @@
 			// (newVal) => {
 			// 	console.log('newVal :>> ', newVal)
 			// }
+
+			watch(
+				() => props.msg,
+				(newMsg) => console.log('newMsg', newMsg)
+			)
 
 			return {
 				...toRefs(state),
